@@ -1,4 +1,4 @@
-const { createUser, findUserByEmail } = require('../queries/user');
+const { addUser, findUserByEmail } = require('../queries/users');
 const { runQuery } = require('../config/database.config')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -8,8 +8,17 @@ const config = require('../config/env/index')
 /**
  * Create new user
  */
-const addUser = async (body) => {
-    const { firstname, lastname, email, phone_number, password } = body
+const createUser = async (body) => {
+    const { password, confirmPassword, firstName, lastName, email, phoneNumber } = body
+
+    if (password !== confirmPassword) {
+        return {
+            code: 400,
+            status: 'error',
+            message: 'Password does not match',
+            data: null
+        }
+    }
     // Check if user already exist in db
     const userExist = await runQuery(findUserByEmail, [email])
     if (userExist.length > 0) {
@@ -21,19 +30,13 @@ const addUser = async (body) => {
         }
     }
 
-
-
-
-/**
-* Encrypt password
-*/
-
+    // Encrypt password
     const saltRounds = 12;
     const hash = bcrypt.hashSync(password, saltRounds);
-    const response = await runQuery(createUser, [ firstname, lastname, email, phone_number, hash])
+    const response = await runQuery(addUser, [firstName, lastName, phoneNumber, email, hash, "user"])
 
     return {
-        code: 200,
+        code: 201,
         status: 'success',
         message: 'New user added successfully',
         data: response[0]
@@ -54,14 +57,13 @@ const loginUser = async (body) => {
         }
     }
     // Compare user passwords
-    const { password: dbPassword, firstname, id } = user[0];
-    console.log(user[0])
+    const { password: dbPassword, role, firstName, lastName, id } = user[0];
     const userPassword = bcrypt.compareSync(password, dbPassword); // Boolean true/false
     if (!userPassword) {
         throw {
             code: 400,
             status: 'error',
-            message: 'Wrong email and password combination',
+            message: 'Wrong email and or password ',
             data: null
         }
     }
@@ -73,8 +75,10 @@ const loginUser = async (body) => {
     // Generate token for authentication purposes
     const token = jwt.sign({
         id,
-        firstname,
+        firstName,
+        lastName,
         email,
+        role
     }, config.JWT_SECRET_KEY, options);
     return {
         status: 'success',
@@ -82,16 +86,16 @@ const loginUser = async (body) => {
         code: 200,
         data: {
             id,
-            firstname,
+            firstName,
+            lastName,
             email,
+            role,
             token
         }
     }
 }
 
 module.exports = {
-    addUser,
+    createUser,
     loginUser
 }
-
-
