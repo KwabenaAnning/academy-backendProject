@@ -9,7 +9,7 @@ const config = require('../config/env/index')
  * Create new user
  */
 const createUser = async (body) => {
-    const { password, confirmPassword, firstName, lastName, email, phoneNumber } = body
+    const { firstName, lastName,phoneNumber, email ,password, confirmPassword } = body
 
     if (password !== confirmPassword) {
         return {

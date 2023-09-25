@@ -3,7 +3,7 @@ const {runQuery} = require("../src/config/database.config");
 dotenv.config();
 const bcrypt = require("bcrypt");
 
-const { adminstrator_firstName: firstName, adminstrator_lastName: lastName, adminstarator_email: email, adminstrator_pwd: password, adminstrator_phone: phoneNumber } = process.env;
+const { adminstrator_firstName: firstName, adminstrator_lastName: lastName, adminstrator_email: email, adminstrator_pwd: password, adminstrator_phone: phoneNumber } = process.env;
 const addAdmin = `
   INSERT INTO users(
     firstName,
