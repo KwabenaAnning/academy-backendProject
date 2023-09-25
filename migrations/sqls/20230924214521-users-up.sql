@@ -6,7 +6,7 @@ CREATE TABLE users (
     firstName VARCHAR(40),
     lastName VARCHAR(40),
     email VARCHAR(100) UNIQUE,
-    phoneNumber VARCHAR(70) UNIQUE,
+    phoneNumber VARCHAR(100) UNIQUE,
     password VARCHAR(100),
     salt VARCHAR(100),
     role role_type,

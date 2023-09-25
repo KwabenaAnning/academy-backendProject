@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json())
 
-const PORT = envConfig.APP_PORT || 5001;
+const PORT = envConfig.APP_PORT || 6060;
 
 app.listen(PORT, () => {
     console.log(`Application running on port ${PORT}`)
