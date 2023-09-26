@@ -1,6 +1,7 @@
 const express = require('express');
 const api = express.Router()
 const users = require('../../routes/user')
+const application = require('../../routes/application')
 
 
 api.get("/", (req, res) => res.status(200).json({
@@ -9,6 +10,7 @@ api.get("/", (req, res) => res.status(200).json({
 }))
 
 api.use("/users", users);
+api.use("/application", application)
 
 
 
