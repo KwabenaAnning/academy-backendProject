@@ -5,11 +5,12 @@ const apiVersion1 = require('./src/config/versioning/v1')
 const { notFound, appErrorHandler, genericErrorHandler } = require('./src/middlewares/error.middleware')
 const envConfig = require('./src/config/env/index')
 
+
 const app = express();
 
 app.use(express.json())
-
-const PORT = envConfig.APP_PORT || 6060;
+// app.use(express.urlencoded({ extended: true }));
+const PORT = envConfig.APP_PORT || 6000;
 
 app.listen(PORT, () => {
     console.log(`Application running on port ${PORT}`)
@@ -19,7 +20,6 @@ app.use('/api/v1', apiVersion1);
 app.use(appErrorHandler);
 app.use(genericErrorHandler);
 app.use(notFound)
-
 
 
 module.exports = app;

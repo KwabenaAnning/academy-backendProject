@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 const config = require('./env/index');
+// const cloudinary = require('../../utils/cloudinary');
 
 const connectionString = config.DATABASE_URL;
 const pool = new Pool({ connectionString });
@@ -16,5 +17,15 @@ const runQuery = async (query, values = []) => {
     const { rows } = await pool.query(query, values);
     return rows;
 };
+module.exports = {runQuery}; 
 
-module.exports = { runQuery }; 
+// const express = require('express');
+// const app = express();
+
+// // Example route for uploading an image
+// app.post('/upload/image', upload.single('image'), (req, res) => {
+//   // Handle the Cloudinary upload response
+//   console.log('Image uploaded to Cloudinary:', req.file.url);
+//   // You can save the image URL to your database or send it in the response
+//   res.json({ success: true, message: 'Image uploaded successfully', url: req.file.url });
+// });

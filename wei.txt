@@ -1,0 +1,1 @@
+application_batch_id, email, image_url, first_name, last_name, cv_url, date_of_birth, address, university, course, cgpa 
