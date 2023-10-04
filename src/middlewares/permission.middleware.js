@@ -3,7 +3,7 @@ const validApplicant = (req, res, next) => {
         return res.status(403).json({
             code: 403,
             status: 'error',
-            message: 'you do not have enough permission to access this web resource',
+            message: 'you are not a normal user.',
             data: null
         })
     }
@@ -11,11 +11,11 @@ const validApplicant = (req, res, next) => {
 }
 
 const validAdmin = (req, res, next) => {
-    if (req.data && req.data.role !== 'super_admin') {
+    if (req.data && req.data.role !== 'superAdminstrator') {
         return res.status(403).json({
             code: 403,
             status: 'error',
-            message: 'you do not have enough permission to access this web resource',
+            message: 'you are not an admin. Use an Admin Token',
             data: null
         })
     }
