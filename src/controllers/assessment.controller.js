@@ -25,7 +25,18 @@ const takeAssessment = async (req, res, next) => {
     }
 }
 
+const grabAllAssessments = async (req, res, next) => {
+    try {
+        const result = await AssessmentService.retrieveAllAssessments(req.body);
+        return res.status(result.code).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 module.exports = {
     createAssessment,
-    takeAssessment
+    takeAssessment,
+    grabAllAssessments
 }

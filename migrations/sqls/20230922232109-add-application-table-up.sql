@@ -1,9 +1,8 @@
-/* Replace with your SQL commands */
 CREATE TYPE status_enum AS ENUM('pending', 'declined', 'approved');
 CREATE TABLE application(
     id SERIAL PRIMARY KEY,
     user_id SERIAL REFERENCES users(id) ON DELETE CASCADE,
-    application_batch_id SERIAL REFERENCES applicationsBatches(id) ON DELETE CASCADE,
+    application_batch_id VARCHAR(10) DEFAULT '1',
     first_Name VARCHAR(30),
     last_Name VARCHAR(30),
     cv_url VARCHAR(100),

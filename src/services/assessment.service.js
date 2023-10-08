@@ -36,11 +36,12 @@ const retrieveAllAssessments = async () => {
  */
 const retrieveSingleAssessment = async (id) => {
     const result = await runQuery(getSingleAssessment, [id]);
+    console.log(result)
     if(result[0]){
         return {
             code: 200,
             status: 'success',
-            message: 'Single application fetched successfully',
+            message: 'Single assessments fetched successfully',
             data: result[0]
         }
     }else {

@@ -5,6 +5,7 @@ const {validAdmin, validApplicant} = require("../middlewares/permission.middlewa
 const router = express.Router();
 
 router.post('/', validAdmin, AssessmentController.createAssessment);
+router.get('/', validAdmin, AssessmentController.grabAllAssessments);
 // router.post('/make', validAdmin, AssessmentController.createAssessmentBatch);
 router.post('/take', validApplicant, AssessmentController.takeAssessment);
 

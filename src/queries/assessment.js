@@ -39,12 +39,19 @@ const getUserUniqueAssessmentResult = `
 `;
 
 const getAllAssessments = `
-        SELECT * FROM assessment_results
-`;
+        SELECT * FROM assessment_results`;
 
 const getSingleAssessment = `
-        SELECT id, title, author, user_id, published_at, created_at
-        FROM books WHERE id=$1
+    SELECT id AS assessment_result_id,
+    user_id,
+    assessment_id,
+    application_id,
+    time_allocated,
+    time_spent,
+    responses
+    FROM assessment_results 
+    WHERE id=$1
+    LIMIT 1;
 `;
 
 const updateAssessment = `
