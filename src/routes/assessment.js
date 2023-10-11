@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/', validAdmin, AssessmentController.createAssessment);
 router.get('/', validAdmin, AssessmentController.grabAllAssessments);
+router.get('/Baako/:id', validAdmin, AssessmentController.grabSingleAssessments);
 // router.post('/make', validAdmin, AssessmentController.createAssessmentBatch);
 router.post('/take', validApplicant, AssessmentController.takeAssessment);
 

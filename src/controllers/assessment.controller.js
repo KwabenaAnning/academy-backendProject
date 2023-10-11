@@ -35,8 +35,21 @@ const grabAllAssessments = async (req, res, next) => {
 }
 
 
+const grabSingleAssessments = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const result = await AssessmentService.retrieveSingleAssessment(id);
+        console.log(result)
+        return res.status(result.code).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 module.exports = {
     createAssessment,
     takeAssessment,
-    grabAllAssessments
+    grabAllAssessments,
+    grabSingleAssessments
 }

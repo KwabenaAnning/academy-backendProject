@@ -4,13 +4,15 @@ const express = require('express');
 const apiVersion1 = require('./src/config/versioning/v1')
 const { notFound, appErrorHandler, genericErrorHandler } = require('./src/middlewares/error.middleware')
 const envConfig = require('./src/config/env/index')
-
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json())
 // app.use(express.urlencoded({ extended: true }));
-const PORT = envConfig.APP_PORT || 6000;
+const PORT = envConfig.APP_PORT || 6001;
 
 app.listen(PORT, () => {
     console.log(`Application running on port ${PORT}`)
