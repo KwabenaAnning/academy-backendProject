@@ -14,8 +14,8 @@ const { findUserByEmail } = require('../queries/users');
 
 // Function to add a new application
 const addNewApplication = async (body) => {
-    const { email, imageUrl, first_Name, last_Name, cvUrl, date_of_birth, address, university, course, cgpa } = body;
-    console.log('services', imageUrl, cvUrl)
+    const { email, image_url, first_Name, last_Name, cv_url, date_of_birth, address, university, course, cgpa,  user_id } = body;
+    console.log('services', image_url, cv_url)
     // Check if the user exists in the "users" table
     const [user] = await runQuery(findUserByEmail, [email]);
   
@@ -29,7 +29,7 @@ const addNewApplication = async (body) => {
     }
 
     // Continue with the application insertion
-    const result = await runQuery(addApplication, [ email, imageUrl, first_Name, last_Name, cvUrl, date_of_birth, address, university, course, cgpa, "pending"]);
+    const result = await runQuery(addApplication, [ email, image_url, first_Name, last_Name, cv_url, date_of_birth, address, university, course, cgpa, "pending",  user_id]);
 
     return {
         code: 201,
@@ -103,7 +103,7 @@ const retrieveOneApplication = async (id) => {
 }
 
 const addNewApplicationBatch = async (body) => {
-    const { batch_id, imageUrl, link, deadline, instructions } = body;
+    const { batch_id, image_url, link, deadline, instructions } = body;
 
     // Check if application batch already exists
     const application = await runQuery(getApplicationBatchById, [batch_id])
@@ -116,7 +116,7 @@ const addNewApplicationBatch = async (body) => {
         }
     }
 
-    const result = await runQuery(addApplicationBatch, [batch_id, imageUrl,
+    const result = await runQuery(addApplicationBatch, [batch_id, image_url,
         link,
         deadline,
         instructions])

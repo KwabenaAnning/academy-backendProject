@@ -17,7 +17,26 @@ const findUserByEmail = `
  SELECT id,  firstName, lastName, email, role, password FROM users WHERE email=$1
 `
 
+const updateTestScores = `
+UPDATE users 
+SET testscores = testscores + 1  
+WHERE id = $1 ` ;
+
+
+const updateTaken =`
+UPDATE users 
+SET taken = false
+WHERE id = $1`;
+
+const fetchAll= `
+SELECT * FROM users
+WHERE id = $1`; 
+
+
 module.exports = {
     addUser,
-    findUserByEmail
+    findUserByEmail,
+    updateTestScores,
+    updateTaken,
+    fetchAll
 }

@@ -17,14 +17,14 @@ const createApplicationBatch = async (req, res, next) => {
     }
 }
 
-// const createApplication = async (req, res, next) => {
-//     try {
-//         const result = await addNewApplication(req.body);
-//         return res.status(result.code).json(result)
-//     } catch (error) {
-//         next(error)
-//     }
-// }
+const createApplication = async (req, res, next) => {
+    try {
+        const result = await addNewApplication({ ...req.body, user_id: req.data.id });
+        return res.status(result.code).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
 
 const RetrieveID = async (req, res, next) => {
     try {
@@ -74,20 +74,6 @@ const fetchSingleApplication = async (req, res, next) => {
 //         next(error)
 //     }
 // }
-
-const createApplication = async (req, res) => {
-   try {
-    const imageUrl = req.imgUrl
-    const cvUrl = req.setCvUrl
-    console.log(imageUrl, cvUrl)
-    const result = await addNewApplication({ ...req.body, imageUrl, cvUrl });
-    console.log(result)
-    return res.status(201).json(result);
-   } catch (error) {
-      console.error(error);
-      res.status(500).json({ error});
-   }
-};
 
 
 module.exports = {

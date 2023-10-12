@@ -15,6 +15,6 @@ router.put('/:id', ApplicationController.fetchSingleApplication);
 
 // router.get('/all', validAdmin, ApplicationController.descOrder);
 
-// ifEmailExist
+
 
 module.exports = router

@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS users (
     role role_type,
     status boolean DEFAULT true,
     country VARCHAR(255),
+    taken BOOLEAN DEFAULT false,
+    testScores INTEGER DEFAULT 0,
     created_at timestamptz DEFAULT NOW(),
     updated_at timestamptz DEFAULT NOW()
 );
