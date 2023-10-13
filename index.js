@@ -11,7 +11,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
-app.use(fileupload({limit: 50*1024*1024}))
+app.use(fileupload({useTempFiles:true}))
 app.use(express.json())
 // app.use(express.urlencoded({ extended: true }));
 const PORT = envConfig.APP_PORT || 6001;
