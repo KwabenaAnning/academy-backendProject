@@ -1,6 +1,9 @@
 const development = require('./development');
 const test = require('./test');
 const production = require('./production');
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const environment = {
     development,

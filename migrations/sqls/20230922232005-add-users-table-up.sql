@@ -1,4 +1,6 @@
 /* Replace with your SQL commands */
+
+DROP TYPE IF EXISTS status_enum;
 CREATE TYPE role_type AS ENUM('user', 'superAdminstrator');
 
 CREATE TABLE IF NOT EXISTS users (
@@ -12,6 +14,8 @@ CREATE TABLE IF NOT EXISTS users (
     role role_type,
     status boolean DEFAULT true,
     country VARCHAR(255),
+    taken BOOLEAN DEFAULT false,
+    testScores INTEGER DEFAULT 0,
     created_at timestamptz DEFAULT NOW(),
     updated_at timestamptz DEFAULT NOW()
 );

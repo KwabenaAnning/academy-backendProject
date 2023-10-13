@@ -32,20 +32,56 @@ const signInUser = async (req, res, next) => {
     }
 }
 
+
+/** 
+@param {} req 
+@param {} res 
+@param {} next 
+* @returns 
+*/
+const updatetheTaken = async (req, res, next) => {
+  try {
+      const { user_id } = req.params.id
+      const result = await UserService.updateMyTaken(user_id);
+      return res.status(result.code).json(result)
+  } catch (error) {
+      next(error)
+  }
+}
+
+/**
+* 
+@param {} req 
+@param {} res 
+@param {} next 
+* @returns 
+*/
+const updateTheTestScores = async (req, res, next) => {
+  try {
+    const { user_id } = req.params.id
+      const result = await UserService.updateMyTestScores(user_id);
+      return res.status(result.code).json(result)
+  } catch (error) {
+      next(error)
+  }
+}
+
+const grabAllUsers = async (req, res, next) => {
+    try {
+        const result = await UserService.getAllUsers(req.body);
+        return res.status(result.code).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     createUser,
-    signInUser
+    signInUser,
+    updatetheTaken,
+    updateTheTestScores,
+    grabAllUsers
 }
 
 
 
-
-
-
-
-
-
-module.exports = {
-   createUser,
-   signInUser,
-};

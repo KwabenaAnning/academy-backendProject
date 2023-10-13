@@ -14,7 +14,8 @@ const addApplication = `
         course,
         cgpa,
         status
-    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING id, created_at
+        user_id,
+    ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11, $12) RETURNING id, created_at
 `;
 
 const addApplicationBatch = `
@@ -70,7 +71,8 @@ const getSingleApplication = `
         course,
         cgpa, 
         created_at, 
-        updated_at
+        updated_at,
+        user_id,
         FROM application WHERE id=$1`        
 
 

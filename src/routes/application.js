@@ -7,7 +7,7 @@ const { userImageUploader, userCvUploader} = require('../middlewares/cloudinary.
 const router = express.Router();
 // router.post('/', upload.single('file'), ApplicationController.createApplication);
 router.post('/createB', validAdmin, ApplicationController.createApplicationBatch);
-router.post('/create', validApplicant, userImageUploader, userCvUploader, ApplicationController.createApplication);
+router.post('/create', validApplicant, ApplicationController.createApplication);
 router.get('/', validAdmin, ApplicationController.fetchAllApplications);
 router.get('/email', validAdmin, ApplicationController.RetrieveID);
 router.get('/:id',validAdmin, ApplicationController.fetchSingleApplication);
@@ -15,6 +15,6 @@ router.put('/:id', ApplicationController.fetchSingleApplication);
 
 // router.get('/all', validAdmin, ApplicationController.descOrder);
 
-// ifEmailExist
+
 
 module.exports = router

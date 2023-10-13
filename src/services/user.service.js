@@ -1,4 +1,4 @@
-const { addUser, findUserByEmail } = require('../queries/users');
+const { addUser, findUserByEmail , updateTestScores, updateTaken, fetchAllUsers} = require('../queries/users');
 const { runQuery } = require('../config/database.config')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -95,7 +95,68 @@ const loginUser = async (body) => {
     }
 }
 
+const updateMyTaken = async (id) => {
+ 
+    const updated_at = new Date();
+    const result = await runQuery(updateTaken, [id]);
+    console.log(result)
+    // const result = await runQuery(updateTaken, [updated_at, id]);
+    if (result.rowCount === 1) {
+        return {
+            code: 201,
+            status: 'success',
+            message: 'User assessment taken status updated successfully',
+            data: result
+        };
+    } else {
+        return {
+            code: 404,
+            status: 'error',
+            message: 'User not found',
+            data: null
+        };
+    }
+};
+
+
+
+// Update user's test scores
+const updateMyTestScores = async (id) => {
+    const updated_at = new Date();
+    const results = await runQuery(updateTestScores, [ id]);
+    if (results.rowCount === 1) {
+        return {
+            code: 201,
+            status: 'success',
+            message: 'User score updated successfully',
+            data: results
+        };
+    } else {
+        return {
+            code: 404,
+            status: 'error',
+            message: 'User not found',
+            data: null
+        };
+    }
+};
+
+// Get all users
+const getAllUsers = async () => {
+    const data = await runQuery(fetchAllUsers);
+    return {
+        code: 201,
+        status: 'success',
+        message: 'Users fetched successfully',
+        data: data
+    };
+};
+
+
 module.exports = {
     createUser,
-    loginUser
+    loginUser,
+    updateMyTaken,
+    updateMyTestScores,
+    getAllUsers,
 }

@@ -1,3 +1,4 @@
+const cloudinary = require("../../utils/cloudinary");
 const {   addNewApplication,retrieveAllApplications, retrieveOneApplication, addNewApplicationBatch,
     RetrieveMyID} = require('../services/application.service');
 
@@ -17,14 +18,22 @@ const createApplicationBatch = async (req, res, next) => {
     }
 }
 
-// const createApplication = async (req, res, next) => {
-//     try {
-//         const result = await addNewApplication(req.body);
-//         return res.status(result.code).json(result)
-//     } catch (error) {
-//         next(error)
-//     }
-// }
+const createApplication = async (req, res, next) => {
+    try {
+        const { cv_url, image_url } = req.files;
+        console.log(req.files)
+        const imgRes = await cloudinary.uploader.upload(image_url.tempFilePath);
+        console.log(imgRes)
+        const cvRes = await cloudinary.uploader.upload(cv_url.tempFilePath);
+        console.log(cvRes)
+        const result = await addNewApplication({ ...req.body, user_id: req.data.id, image_url:imgRes.url, cv_url:cvRes.url});
+        console.log(result)
+        return res.status(result.code).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 const RetrieveID = async (req, res, next) => {
     try {
@@ -74,20 +83,6 @@ const fetchSingleApplication = async (req, res, next) => {
 //         next(error)
 //     }
 // }
-
-const createApplication = async (req, res) => {
-   try {
-    const imageUrl = req.imgUrl
-    const cvUrl = req.setCvUrl
-    console.log(imageUrl, cvUrl)
-    const result = await addNewApplication({ ...req.body, imageUrl, cvUrl });
-    console.log(result)
-    return res.status(201).json(result);
-   } catch (error) {
-      console.error(error);
-      res.status(500).json({ error});
-   }
-};
 
 
 module.exports = {

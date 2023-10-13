@@ -1,3 +1,4 @@
+DROP TYPE IF EXISTS status_enum;
 CREATE TYPE status_enum AS ENUM('pending', 'declined', 'approved');
 CREATE TABLE application(
     id SERIAL PRIMARY KEY,
