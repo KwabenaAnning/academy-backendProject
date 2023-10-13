@@ -1,4 +1,6 @@
 /* Replace with your SQL commands */
+
+DROP TYPE IF EXISTS status_enum;
 CREATE TYPE role_type AS ENUM('user', 'superAdminstrator');
 
 CREATE TABLE IF NOT EXISTS users (

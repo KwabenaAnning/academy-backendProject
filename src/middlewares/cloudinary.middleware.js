@@ -17,7 +17,7 @@ const checkIfEmailExists = async (req, res, next) => {
                 data: null,
             });
         }
-        
+
 
         req.user = user;
         return next();
@@ -60,23 +60,43 @@ const getSecureUrl = async (fileData) => {
     }
 };
 
-// const uploadToCloudinary = async (fileData) => {
+
+// const userImageUploader = async (req, res, next) => {
 //     try {
-//         const { secure_url } = await cloudinary.uploader.upload(fileData, {use_filename :true, resource_type: 'raw' });
-//         // When you use the parameter 'use_filename: true'  the file name is normalized and random characters are appended to ensure uniqueness so if you upload two files with the same name they would be given two different public IDs.
-//         // However, if you don't want this feature you can also include the parameter 'unique_filename: false' and then random characters won't be appended to the public ID.
-//         return secure_url;
+//         const image = req.files.image_url; 
+
+//         if (!image) {
+//             return res.status(400).json({
+//                 status: 'error',
+//                 code: 400,
+//                 message: 'No image provided',
+//                 data: null,
+//             });
+//         }
+
+//         const uploadResponse = await getSecureUrl(image.data); 
+
+//         if (!uploadResponse.isSuccess) {
+            
+//             return res.status(424).json({
+//                 status: 'failed',
+//                 code: 424,
+//                 message: uploadResponse.message,
+//                 data: null,
+//             });
+//         }
+
+//         req.body.image_url = uploadResponse.data; 
+
+//         return next();
 //     } catch (error) {
-//         return error;
+//         return next(error);
 //     }
 // };
 
-
 const userImageUploader = async (req, res, next) => {
     try {
-        const image = req.files.image_url; 
-
-        if (!image) {
+        if (!req.files || !req.files.image_url) {
             return res.status(400).json({
                 status: 'error',
                 code: 400,
@@ -85,10 +105,10 @@ const userImageUploader = async (req, res, next) => {
             });
         }
 
+        const image = req.files.image_url;
         const uploadResponse = await getSecureUrl(image.data); 
 
         if (!uploadResponse.isSuccess) {
-            
             return res.status(424).json({
                 status: 'failed',
                 code: 424,
@@ -104,6 +124,7 @@ const userImageUploader = async (req, res, next) => {
         return next(error);
     }
 };
+
 
 
 
