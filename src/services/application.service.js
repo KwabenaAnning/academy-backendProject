@@ -1,4 +1,4 @@
-const { addApplication, addApplicationBatch, getApplicationByemail, getApplicationBatchById, getAllApplications, getSingleApplication,
+const { addApplication, addApplicationBatch,getApplicationBatchById, getAllApplications, getSingleApplication,
     getUserUniqueApplication
 } = require('../queries/applications');
 const { runQuery } = require('../config/database.config');
@@ -10,7 +10,6 @@ const { findUserByEmail } = require('../queries/users');
  * Add new application
  */
 
-// Import necessary modules and queries
 
 // Function to add a new application
 const addNewApplication = async (body) => {
@@ -39,34 +38,6 @@ const addNewApplication = async (body) => {
         data: result[0]
     };
 };
-
-// Rest of your code...
-
-
-// const addNewApplication = async (body) => {
-//     const {  email, image_url, first_Name, last_Name, cv_url, date_of_birth, address, university, course, cgpa} = body; 
-
-//     // Check if application already exists
-//     const application = await runQuery(getApplicationByemail, [ email])
-//     if (application.length > 0) {
-//         throw {
-//             code: 409,
-//             status: 'error',
-//             message: 'Application already exist',
-//             data: null
-//         }
-//     }
-    
-
-//     // const created_at = new Date();
-//     const result = await runQuery(addApplication, [ email, image_url, first_Name, last_Name, cv_url, date_of_birth, address, university, course, cgpa, "pending"])
-//     return {
-//         code: 201,
-//         status: 'success',
-//         message: 'New application added successfully',
-//         data: result[0]
-//     }
-// }
 
 /**
  * Get all applications
@@ -188,6 +159,4 @@ module.exports = {
     retrieveOneApplication,
     addNewApplicationBatch,
       RetrieveMyID
-    //   applicationOrder
-    // imageDoc,
 }

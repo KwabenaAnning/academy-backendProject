@@ -13,14 +13,10 @@ const app = express();
 app.use(cors());
 app.use(fileupload({useTempFiles:true}))
 app.use(express.json())
-// app.use(express.urlencoded({ extended: true }));
+
 const PORT = envConfig.APP_PORT || 6001;
 
 
-// app.put('/api/resource/:id', (req, res) => {
-//     // Your route handling logic here
-//     res.send('PUT request received');
-//   });
 
 app.listen(PORT, () => {
     console.log(`Application running on port ${PORT}`)
