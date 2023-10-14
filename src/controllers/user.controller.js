@@ -75,12 +75,57 @@ const grabAllUsers = async (req, res, next) => {
     }
 }
 
+const fetchAdmin = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const result = await UserService.fetchAdminById(id);
+        return res.status(result.code).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
+const fetchAdminCreds = async (req, res, next) => {
+    try {
+        const result = await UserService.getAdminCred(req.body);
+        return res.status(result.code).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
+const findAdmin = async (req, res, next) => {
+    try {
+        // console.log(req.data)
+        const result = await UserService.fetchAdminById(req.params.id);
+        
+        return res.status(result.code).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
+const updateAdmin = async (req, res, next) => {
+    try {
+        const result = await UserService.updateSingleAdmin({...req.body, id:req.params.id});
+
+        return res.status(result.code).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 module.exports = {
     createUser,
     signInUser,
     updatetheTaken,
     updateTheTestScores,
-    grabAllUsers
+    grabAllUsers,
+    fetchAdmin,
+    fetchAdminCreds,
+    updateAdmin,
+    findAdmin
 }
 
 

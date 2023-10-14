@@ -1,4 +1,4 @@
-const { addUser, findUserByEmail , updateTestScores, updateTaken, fetchAllUsers} = require('../queries/users');
+const { addUser, findUserByEmail , updateTestScores, updateTaken,updateUser, fetchAllUsers, fetchUserById,findUserById} = require('../queries/users');
 const { runQuery } = require('../config/database.config')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -118,7 +118,24 @@ const updateMyTaken = async (id) => {
     }
 };
 
-
+const fetchAdminById = async (id) => {
+    const result = await runQuery(findUserById, [id]);
+    if(result[0]){
+        return {
+            code: 200,
+            status: 'success',
+            message: 'Single admin fetched successfully',
+            data: result[0]
+        }
+    }else {
+        return {
+            code: 404,
+            status: 'failed',
+            message: `no data found for id ${id}`,
+            data: null
+        }
+    }
+}
 
 // Update user's test scores
 const updateMyTestScores = async (id) => {
@@ -141,6 +158,30 @@ const updateMyTestScores = async (id) => {
     }
 };
 
+const updateSingleAdmin = async (body) => {
+    const { firstName, lastName, email, phoneNumber, country, address, id } = body;
+    //find admin by Id first
+    const creds = await runQuery(findUserById, [id]);
+    if (creds.length === 0) {
+        throw {
+            code: 409,
+            message: 'Cannot find admin',
+            data: null,
+            status: 'error'
+        }
+    }
+   
+    const data = await runQuery(updateUser, [firstName, lastName, email, phoneNumber, country, address, id]);
+    return {
+        code: 200,
+        status: 'success',
+        message: 'Admin credentials updated successfully',
+        data: data[0]
+    }
+}
+
+
+
 // Get all users
 const getAllUsers = async () => {
     const data = await runQuery(fetchAllUsers);
@@ -159,4 +200,6 @@ module.exports = {
     updateMyTaken,
     updateMyTestScores,
     getAllUsers,
+    fetchAdminById,
+    updateSingleAdmin
 }

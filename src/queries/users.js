@@ -32,11 +32,27 @@ const fetchAll= `
 SELECT * FROM users
 WHERE id = $1`; 
 
+const findUserById = `SELECT id, firstName, lastname, email, phoneNumber, country, address FROM users WHERE id=$1`
+
+
+const updateUser = `
+UPDATE users
+SET
+ firstName = $1,
+ lastName = $2,
+ phoneNumber = $4,
+ email = $3,
+ country = $5,
+ address = $6
+WHERE id = $7 ` ;
+
 
 module.exports = {
     addUser,
     findUserByEmail,
     updateTestScores,
     updateTaken,
-    fetchAll
+    fetchAll,
+    updateUser,
+    findUserById
 }
