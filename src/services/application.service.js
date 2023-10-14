@@ -14,7 +14,7 @@ const { findUserByEmail } = require('../queries/users');
 // Function to add a new application
 const addNewApplication = async (body) => {
     const { email, first_Name, last_Name, date_of_birth, address, university,
-         course, cgpa,  user_id } = body;
+         course, cgpa,  user_id, image_url, cv_url } = body;
     console.log('services', image_url, cv_url)
     // Check if the user exists in the "users" table
     const [user] = await runQuery(findUserByEmail, [email]);
