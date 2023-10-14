@@ -207,53 +207,6 @@ const checkSignUpApplicantInput = (req, res, next) => {
   
   
   
-  
-  
-  const checkCreateAssessmentInput = (req, res, next) => {
-  
-  
-    try{
-  
-      const { batch, question, timer } = req.body
-  
-      console.log(closure_date)
-  
-      if(!isUrl(link)){
-        return responseProvider( res, null, 'provide a valid url link', 400)
-      }
-  
-      if(typeof batch_id !== "number"){
-        return responseProvider( res, null, 'provide a valid batch Id', 400)
-      }
-      
-  
-      if (!moment(closure_date, 'DD/MM/YYYY', true).isValid) {
-        return responseProvider( res, null, 'provide a valid application closure date', 400)
-      }
-  
-  
-      if(!instructions){
-        return responseProvider( res, null, 'provide valid instructions', 400)
-      }
-  
-      return next();
-  
-    } catch (error) {
-  
-      return next(error);
-  
-    }
-  };
-  
-  // const checkExamsInput = (req, res, next) => {}
-  
-  // const checkApprovalInput = (req, res, next) => {}
-  
-  // const checkBatchIdInput = (req, res, next) => {}
-  
-  // const checkTimerInput = (req, res, next) => {}
-  
-  
   module.exports = {
     checkSignUpApplicantInput,  
     checkApplicantLoginInput,

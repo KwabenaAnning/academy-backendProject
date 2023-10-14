@@ -19,13 +19,3 @@ const runQuery = async (query, values = []) => {
 };
 module.exports = {runQuery}; 
 
-// const express = require('express');
-// const app = express();
-
-// // Example route for uploading an image
-// app.post('/upload/image', upload.single('image'), (req, res) => {
-//   // Handle the Cloudinary upload response
-//   console.log('Image uploaded to Cloudinary:', req.file.url);
-//   // You can save the image URL to your database or send it in the response
-//   res.json({ success: true, message: 'Image uploaded successfully', url: req.file.url });
-// });

@@ -26,10 +26,6 @@ const addAssessmentBatch = `
         instructions
     ) VALUES ($1,$2,$3,$4,$5) RETURNING id, created_at`;
 
-const getAssessmentByTitle = `
-        SELECT id, title, author, user_id FROM books WHERE title=$1
-`;
-
 const getAssessmentBatchById = `
         SELECT id FROM applicationsBatches WHERE batch_id=$1
 `;
@@ -54,19 +50,12 @@ const getSingleAssessment = `
     LIMIT 1;
 `;
 
-const updateAssessment = `
-UPDATE books 
-    SET title = $2, author = $3
-    WHERE id = $1
-`;
 
 module.exports = {
     addAssessmentResults,
     addAssessment,
-    getAssessmentByTitle,
     getAllAssessments,
     getSingleAssessment,
-    updateAssessment,
     addAssessmentBatch,
     getAssessmentBatchById,
     getUserUniqueAssessmentResult

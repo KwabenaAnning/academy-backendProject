@@ -1,4 +1,4 @@
-const { addAssessment, addAssessmentBatch,addAssessmentResults, getAssessmentByTitle, getAssessmentBatchById, getAllAssessments, getSingleAssessment, updateAssessment,
+const { addAssessment, addAssessmentBatch,addAssessmentResults, getAssessmentBatchById, getAllAssessments, getSingleAssessment, updateAssessment,
     getUserUniqueAssessmentResult
 } = require('../queries/assessment');
 const { runQuery } = require('../config/database.config');
@@ -54,15 +54,6 @@ const retrieveSingleAssessment = async (id) => {
     }
 }
 
-const updateSingleAssessment = async (id, body) => {
-    const data = await runQuery(updateAssessment, [id, body.title, body.author]);
-    return {
-        code: 200,
-        status: 'success',
-        message: `Assessment with id ${id} updated successfully`,
-        data: []
-    }
-}
 
 const addNewAssessmentBatch = async (body) => {
     const { batch_id, imageUrl,
@@ -122,7 +113,6 @@ module.exports = {
     addNewAssessment,
     retrieveAllAssessments,
     retrieveSingleAssessment,
-    updateSingleAssessment,
     addNewAssessmentBatch,
     takeAssessment
 }
